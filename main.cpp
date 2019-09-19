@@ -20,8 +20,6 @@ int main() {
 		g->AddEdge(i1-1, i2-1);
 	}
 
-	g->PrintGraph();
-
 	for(i = 0; i < num_instrucoes; i++) {
 		char instr;
 		std::cin >> instr;
@@ -35,6 +33,8 @@ int main() {
 			std::cin >> target;
 			g->YoungestCommander(target-1);
 		}
+		else if(instr == 'M')
+			g->Meeting();
 	}
 
 	delete g;

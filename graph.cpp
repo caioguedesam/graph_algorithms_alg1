@@ -32,7 +32,7 @@ void Graph::PrintGraph() {
 	}
 }
 
-bool Graph::DFSCycle() {
+bool Graph::CheckCycle() {
 	bool visited[_num_nodes];
 	bool recur[_num_nodes];
 	int i;
@@ -67,7 +67,7 @@ bool Graph::SwapUtil(const int &i1, const int &i2) {
 		if(*it == i2) {
 			_node_adj[i1].erase(it);
 			this->AddEdge(i2, i1);
-			if(this->DFSCycle()) {
+			if(this->CheckCycle()) {
 				_node_adj[i2].pop_back();
 				this->AddEdge(i1, i2);
 				return false;
@@ -120,3 +120,29 @@ void Graph::DFSRecurCommander(const int &index, const int &target,
 		}
 	}
 }
+
+void Graph::Meeting() {
+	std::vector<int> stack;
+	bool visited[_num_nodes];
+
+	int i;
+	for(i = 0; i < _num_nodes; i++)
+		visited[i] = false;
+
+	for(i = 0; i < _num_nodes; i++)
+		DFSRecurMeeting(i, visited, &stack);
+
+	for(auto it = stack.rbegin(); it != stack.rend(); it++)
+		std::cout << *it+1 << " ";
+	std::cout << std::endl;
+}
+
+void Graph::DFSRecurMeeting(const int &index, bool *visited, std::vector<int> *stack) {
+	if(!visited[index]) {
+		visited[index] = true;
+		for(auto it = _node_adj[index].begin(); it != _node_adj[index].end(); it++)
+			DFSRecurMeeting(*it, visited, stack);
+		stack->push_back(index);
+	}
+}
+		

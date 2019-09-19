@@ -16,7 +16,7 @@ public:
 	void AddEdge(const int &i1, const int &i2);
 	void PrintGraph();
 
-	bool DFSCycle();
+	bool CheckCycle();
 	bool DFSRecurCycle(const int &index, bool *visited, bool *recur);
 	void Swap(const int &i1, const int &i2);
 	bool SwapUtil(const int &i1, const int &i2);
@@ -24,6 +24,9 @@ public:
 	void YoungestCommander(const int &target);
 	void DFSRecurCommander(const int &index, const int &target,
 			int youngest_current, int *youngest, bool *visited);
+
+	void Meeting();
+	void DFSRecurMeeting(const int &index, bool *visited, std::vector<int> *stack);
 
 };
 
