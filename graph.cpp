@@ -86,3 +86,37 @@ void Graph::Swap(const int &i1, const int &i2) {
 	else
 		std::cout << "S N" << std::endl;
 }
+
+void Graph::YoungestCommander(const int &index) {
+	bool visited[_num_nodes];
+	int i;
+	for(i = 0; i < _num_nodes; i++)
+		visited[i] = false;
+
+	int youngest = 999;
+
+	for(i = 0; i < _num_nodes; i++) {
+		DFSRecurCommander(i, index, _node_age[i], &youngest, visited);
+	}
+
+	if(youngest == 999)
+		std::cout << "C *" << std::endl;
+	else
+		std::cout << "C " << youngest << std::endl;
+}
+
+void Graph::DFSRecurCommander(const int &index, const int &target,
+		int youngest_current, int *youngest, bool *visited) {
+	if(!visited[index]) {
+		visited[index] = true;
+		if(_node_age[index] < youngest_current)
+			youngest_current = _node_age[index];
+
+		for(auto it = _node_adj[index].begin(); it != _node_adj[index].end(); it++) {
+			if(*it == target && youngest_current < *youngest)
+				*youngest = youngest_current;
+			else if(!visited[*it])
+				DFSRecurCommander(*it, target, youngest_current, youngest, visited);
+		}
+	}
+}

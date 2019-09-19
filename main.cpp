@@ -30,10 +30,13 @@ int main() {
 			std::cin >> i1 >> i2;
 			g->Swap(i1-1, i2-1);
 		}
+		else if(instr == 'C') {
+			int target;
+			std::cin >> target;
+			g->YoungestCommander(target-1);
+		}
 	}
 
-	g->PrintGraph();
-
-
+	delete g;
 	return 0;
 }
