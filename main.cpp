@@ -1,0 +1,39 @@
+#include "graph.h"
+
+int main() {
+
+	int num_alunos, num_comandos, num_instrucoes;
+	std::cin >> num_alunos >> num_comandos >> num_instrucoes;
+
+	Graph *g = new Graph();
+
+	int i;
+	for(i = 0; i < num_alunos; i++) {
+		int age;
+		std::cin >> age;
+		g->AddNode(age);
+	}
+
+	for(i = 0; i < num_comandos; i++) {
+		int i1, i2;
+		std::cin >> i1 >> i2;
+		g->AddEdge(i1-1, i2-1);
+	}
+
+	g->PrintGraph();
+
+	for(i = 0; i < num_instrucoes; i++) {
+		char instr;
+		std::cin >> instr;
+		if(instr == 'S') {
+			int i1, i2;
+			std::cin >> i1 >> i2;
+			g->Swap(i1-1, i2-1);
+		}
+	}
+
+	g->PrintGraph();
+
+
+	return 0;
+}
