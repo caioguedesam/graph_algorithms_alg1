@@ -93,13 +93,13 @@ void Graph::YoungestCommander(const int &index) {
 	for(i = 0; i < _num_nodes; i++)
 		visited[i] = false;
 
-	int youngest = 999;
+	int youngest = INT_MAX;
 
 	for(i = 0; i < _num_nodes; i++) {
 		DFSRecurCommander(i, index, _node_age[i], &youngest, visited);
 	}
 
-	if(youngest == 999)
+	if(youngest == INT_MAX)
 		std::cout << "C *" << std::endl;
 	else
 		std::cout << "C " << youngest << std::endl;
