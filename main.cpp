@@ -1,3 +1,8 @@
+// Trabalho Prático I - Grupo de Blackjack de Alunos da UFMG
+// DCC206 - Algoritmos I - 2019/2 - UFMG
+// Aluno: Caio Guedes de Azevedo Mota
+// Professora: Jussara Marques
+
 #include "graph.h"
 #include <string>
 #include <fstream>
@@ -8,19 +13,22 @@ using namespace std::chrono;
 
 int main(int argc, char *argv[]) {
 
+	// Estabelecendo início do tempo de execução
 	auto start_clock = high_resolution_clock::now();
-	std::fstream output;
-	output.open("output/output.csv", std::fstream::app);
 
+	// Lendo arquivo pela linha de comando
 	auto file = std::ifstream(std::string(argv[1]));	
 	std::string line;
 
+	// Lendo linha do arquivo e criando um stream para obter
+	// informações da linha
 	std::getline(file, line);
 	auto line_stream = std::stringstream(line);
 
 	int num_alunos, num_comandos, num_instrucoes;
 	line_stream >> num_alunos >> num_comandos >> num_instrucoes;
 
+	// Criando grafo e o populando
 	Graph *g = new Graph();
 
 	std::getline(file, line);
@@ -62,16 +70,14 @@ int main(int argc, char *argv[]) {
 			g->Meeting();
 	}
 
+	// Terminando o tempo de execução e calculando em nanossegundos
 	auto end_clock = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(end_clock - start_clock);
 	int time = int(duration.count());
 
-	if(output.is_open()) {
-		output << num_alunos << "," << time << std::endl;
-	}
-
+	
+	// Fechando o arquivo de entrada
 	file.close();
-	output.close();
 	delete g;
 	return 0;
 }
