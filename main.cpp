@@ -2,17 +2,23 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <chrono>
+
+using namespace std::chrono;
 
 int main(int argc, char *argv[]) {
 
+	auto start_clock = high_resolution_clock::now();
+	std::fstream output;
+	output.open("output/output.csv", std::fstream::app);
+
 	auto file = std::ifstream(std::string(argv[1]));	
-	
 	std::string line;
 
-	int num_alunos, num_comandos, num_instrucoes;
 	std::getline(file, line);
 	auto line_stream = std::stringstream(line);
 
+	int num_alunos, num_comandos, num_instrucoes;
 	line_stream >> num_alunos >> num_comandos >> num_instrucoes;
 
 	Graph *g = new Graph();
@@ -56,7 +62,16 @@ int main(int argc, char *argv[]) {
 			g->Meeting();
 	}
 
+	auto end_clock = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(end_clock - start_clock);
+	int time = int(duration.count());
+
+	if(output.is_open()) {
+		output << num_alunos << "," << time << std::endl;
+	}
+
 	file.close();
+	output.close();
 	delete g;
 	return 0;
 }

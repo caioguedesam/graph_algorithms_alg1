@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for i in {1..970}
+do
+	./tp1 tests/test_subject$i.in
+done
+
